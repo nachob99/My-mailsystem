@@ -15,7 +15,6 @@ public class MailItem
     private String message;
     //asunto
     private String subject;
-
     /**
      * Create a mail item from sender to the given recipient,
      * containing the given message.
@@ -46,7 +45,7 @@ public class MailItem
     {
         return to;
     }
-
+       
     /**
      * @return The text of the message.
      */

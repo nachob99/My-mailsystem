@@ -26,7 +26,11 @@ public class MailClient
      */
     public MailItem getNextMailItem()
     {
-        return server.getNextMailItem(user);
+        MailItem item = server.getNextMailItem(user);
+        if((item.getMessage().contains("regalo") || item.getMessage().contains("viagra"))){
+            item = null;
+        }
+        return item;
     }
 
     /**
@@ -36,22 +40,25 @@ public class MailClient
     public void printNextMailItem()
     {
         MailItem item = server.getNextMailItem(user);
-        if(item == null) {
-            System.out.println("No new mail.");
+        if((item.getMessage().contains("regalo") || item.getMessage().contains("viagra"))){
+            System.out.println("SPAM");
+            if(item == null) {
+                System.out.println("No new mail.");
+            }
         }
         else {
-            item.print();
+             item.print();
         }
     }
 
-    /**
-     * Send the given message to the given recipient via
-     * the attached mail server.
-     * @param to The intended recipient.
-     * @param message The text of the message to be sent.
-     */
-    public void sendMailItem(String to, String message, String subject)
-    {
+        /**
+         * Send the given message to the given recipient via
+         * the attached mail server.
+         * @param to The intended recipient.
+         * @param message The text of the message to be sent.
+         */
+        public void sendMailItem(String to, String message, String subject)
+        {
         MailItem item = new MailItem(user, to, message, subject);
         server.post(item);
     }
